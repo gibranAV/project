@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="nav">
+            <div class="nav-wrapper teal lighten-3">
+                <a href="#" class="brand-logo center">Material Tools</a>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col s12 mine">
+                <ul class="tabs">
+                    <li class="tab col s4 teal lighten-4"><a href="#test1"><span class="blue-text text-darken-4">Thumbnail Tool</span></a></li>
+                    <li class="tab col s4"><a href="#test2">Test 2</a></li>
+                    <li class="tab col s4"><a class="active" href="#test3">Test 3</a></li>
+                </ul>
+            </div>
+            <div id="test1" class="col s12">
+                <div class="thumbnail-wrapper">
+                    <form id="tumbnail-form">
+                        <div class="formthumb">
+                            <label>Background Color</label>
+                            <select id="bg-color" name="color">
+                                <option>Choose Your Color</option>
+                                <option>Red</option>
+                                <option>Pink</option>
+                                <option>Purple</option>
+                                <option>Deep Purple</option>
+                                <option>Indigo</option>
+                                <option>Blue</option>
+                                <option>Light Blue</option>
+                                <option>Cyan</option>
+                                <option>Teal</option>
+                                <option>Green</option>
+                                <option>Light Green</option>
+                                <option>Lime</option>
+                                <option>Yellow</option>
+                                <option>Amber</option>
+                                <option>Orange</option>
+                                <option>Deep Orange</option>
+                                <option>Brown</option>
+                                <option>Grey</option>
+                                <option>Blue Grey</option>
+                            </select>
+                        </div>
+                        <div class="formthumb">
+                            <label>Upload Image</label>
+                            <input accept="image/*" id="upload" name="upload" type="file" />
+                        </div>
+                        <div class="formthumb">
+                            <label>Label of Post</label>
+                            <input id="label" name="label" type="text" />
+                        </div>
+                        <div class="formthumb">
+                            <label>Post Title</label>
+                            <input id="judul" name="judul" type="text" />
+                        </div>
+                        <div class="formthumb">
+                            <label>Author Name</label>
+                            <input id="author" name="author" type="text" />
+                        </div>
+                        <div class="formthumb">
+                            <label>Website Name</label>
+                            <input id="nama-blog" name="nama-blog" type="text" />
+                        </div>
+                    </form>
+                    <div class="background" id="background">
+                        <div class="content-container">
+                            <div class="header-container">
+                                <div id="mistar"></div>
+                                <div id="output-label"></div>
+                            </div>
+                            <div class="title-container">
+                                <div id="output-judul"></div>
+                                <div id="output-image"></div>
+                            </div>
+                            <div class="footer-container">
+                                <div id="output-author"></div>
+                                <div id="output-nama"></div>
+                            </div>
+                            <div id="content-container"></div>
+                        </div>
+                    </div>
+                    <div class="tombol-convert">
+                        <button id="convert-image">Convert Image</button>
+                        <button id="reset-image">Reset Image</button>
+                    </div>
+                    <div id="canvas"></div>
+                    <div class="tombol-download">
+                        <button id="download-image">Download Image</button>
+                    </div>
+                </div>
+            </div>
+            <div id="test2" class="col s12">Test 2</div>
+            <div id="test3" class="col s12">Test 3</div>
+        </div>
+    </div>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdn.statically.io/gh/Azidzainuri/linku/8cd1f458/html2canvas.js"></script>
+    <script>
+        var input = document.getElementById("tumbnail-form"), namaBlog = document.getElementById("nama-blog"), judul = document.getElementById("judul"), author = document.getElementById("author"), label = document.getElementById("label"), bgColor = document.getElementById("bg-color"); input.onkeyup = function () { document.getElementById("output-label").innerHTML = label.value, document.getElementById("output-judul").innerHTML = judul.value, document.getElementById("output-nama").innerHTML = namaBlog.value, document.getElementById("output-author").innerHTML = "@" + author.value }, document.getElementById("bg-color").addEventListener("change", function () { var e = "#fff #d32f2f #c2185b #7b1fa2 #512da8 #303f9f #1976d2 #0288d1 #0097a7 #00796b #388e3c #689f38 #afb42b #fbc02d #ffa000 #f57c00 #e64a19 #5d4037 #616161 #455a64".split(" ")[bgColor.selectedIndex]; document.getElementById("content-container").style.backgroundColor = e, document.getElementById("background").style.display = "block", document.querySelector(".tombol-convert").style.display = "block" }), document.getElementById("upload").onchange = function (e) { var t = document.getElementById("output-image"); t.style = 'background:url("' + URL.createObjectURL(e.target.files[0]) + '")', t.onload = function () { URL.revokeObjectURL(t.style) } }, document.getElementById("convert-image").onclick = function () { html2canvas(document.querySelector(".content-container")).then(e => { document.getElementById("canvas").appendChild(e) }), document.querySelector(".tombol-download").style.display = "block" }, document.getElementById("reset-image").onclick = function () { document.getElementById("canvas").innerHTML = "", document.querySelector(".tombol-download").style.display = "none" }, document.getElementById("download-image").onclick = function () { var e = document.getElementById("judul").value.split(" ").join("-"); console.log(e); var t = document.createElement("a"); t.download = e + ".png", t.href = document.querySelector("canvas").toDataURL(), t.click() }</script>
+
+
+</body>
+
+</html>
