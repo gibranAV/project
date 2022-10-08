@@ -10,7 +10,7 @@
 .thumbnail-wrapper {
     position: relative;
     display: block;
-    border: 2px solid #0e0e;
+    border: 2px solid rgb(80, 37, 3);
     border-radius: 5px;
     margin: auto;
     box-sizing: border-box;
